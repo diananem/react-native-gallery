@@ -1,0 +1,41 @@
+{
+  "name": "react-native-gallery-component",
+  "version": "1.0.0",
+  "description": "React Native component to render a high performant and easily customizable image gallery.",
+  "main": "index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diananem/react-native-gallery.git"
+  },
+  "keywords": [
+    "react-native",
+    "image",
+    "gallery",
+    "camera",
+    "roll",
+    "photo",
+    "ios",
+    "android",
+    "swiper"
+  ],
+  "author": "Diana Nemyrovska",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.5.0",
+    "react-native": "^0.55.0"
+  },
+  "bugs": {
+    "url": "https://github.com/diananem/react-native-gallery/issues"
+  },
+  "homepage": "https://github.com/diananem/react-native-gallery#readme",
+  "dependencies": {
+    "@types/jest": "^24.0.22",
+    "@types/react": "^16.9.11",
+    "@types/react-native": "^0.60.22",
+    "@types/react-test-renderer": "^16.9.1",
+    "typescript": "^3.7.2"
+  }
+}
