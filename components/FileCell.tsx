@@ -4,7 +4,7 @@ import React, {
   useImperativeHandle,
   forwardRef
 } from "react";
-import { Image, Dimensions } from "react-native";
+import { Image, Dimensions, TouchableWithoutFeedback } from "react-native";
 
 interface FileCellProps {
   columns?: number;
@@ -12,10 +12,11 @@ interface FileCellProps {
   source: {
     uri: string;
   };
+  onPressImage: (fileId: string) => void;
 }
 
 const FileCell: React.FC<FileCellProps> = (
-  { columns, fileId, source },
+  { columns, fileId, onPressImage, source },
   ref
 ) => {
   const [isFileLoaded, fileLoaded] = useState(false);
@@ -73,22 +74,29 @@ const FileCell: React.FC<FileCellProps> = (
   }));
 
   return (
-    <Image
-      ref={fileEl}
-      onLayout={() => {
-        readyToMeasure(true);
+    <TouchableWithoutFeedback
+      key={fileId}
+      onPress={() => {
+        onPressImage(fileId);
       }}
-      onLoad={() => {
-        fileLoaded(true);
-      }}
-      source={source}
-      resizeMode="cover"
-      style={{
-        width: Dimensions.get("window").width / (columns || 2),
-        height: Dimensions.get("window").width / (columns || 2),
-        backgroundColor: "lightgrey"
-      }}
-    />
+    >
+      <Image
+        ref={fileEl}
+        onLayout={() => {
+          readyToMeasure(true);
+        }}
+        onLoad={() => {
+          fileLoaded(true);
+        }}
+        source={source}
+        resizeMode="cover"
+        style={{
+          width: Dimensions.get("window").width / (columns || 2),
+          height: Dimensions.get("window").width / (columns || 2),
+          backgroundColor: "lightgrey"
+        }}
+      />
+    </TouchableWithoutFeedback>
   );
 };
 
