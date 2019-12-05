@@ -1,12 +1,14 @@
 import React, { useState, useRef } from "react";
 import {
   StyleSheet,
-  View,
   FlatList,
   Modal,
   Platform,
   Text,
-  TouchableHighlight
+  TouchableHighlight,
+  SafeAreaView,
+  StatusBar,
+  Image
 } from "react-native";
 
 import FileCell from "./components/FileCell";
@@ -28,10 +30,13 @@ const Gallery: React.FC<GalleryProps> = ({ files, columns = 2 }) => {
     undefined
   );
   const [viewerVisible, setViewerVisible] = useState(false);
+  const [imageSize, setImageSize] = useState<{ width: number; height: number }>(
+    { width: 0, height: 0 }
+  );
 
-  console.log(activeFileId);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" hidden={viewerVisible} />
       <FlatList
         style={{ flex: 1 }}
         bounces={false}
@@ -53,6 +58,11 @@ const Gallery: React.FC<GalleryProps> = ({ files, columns = 2 }) => {
               onPressImage={fileId => {
                 setActiveFileId(fileId);
                 setViewerVisible(true);
+                Image.getSize(
+                  item.item.url,
+                  (width, height) => setImageSize({ width, height }),
+                  () => {}
+                );
               }}
             />
           );
@@ -69,6 +79,7 @@ const Gallery: React.FC<GalleryProps> = ({ files, columns = 2 }) => {
           }}
         >
           <FilesSwiper
+            imageSize={imageSize}
             files={files}
             activeFileId={activeFileId}
             onChangePhoto={setActiveFileId}
@@ -83,7 +94,7 @@ const Gallery: React.FC<GalleryProps> = ({ files, columns = 2 }) => {
           </TouchableHighlight>
         </Modal>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
